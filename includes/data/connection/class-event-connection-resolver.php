@@ -43,9 +43,18 @@ class Event_Connection_Resolver {
 		/**
 		 * Merge the input_fields with the default query_args
 		 */
-		// if ( ! empty( $input_fields ) ) {
-		// 	$query_args = array_merge( $query_args, $input_fields );
-		// }
+		if ( ! empty( $input_fields ) ) {
+			$query_args = array_merge( $query_args, $input_fields );
+
+			/**
+			 * If using endDateQuery, make sure the post_type is a string.
+			 *
+			 * @see https://github.com/simplur/ql-events/issues/19
+			 */
+			if( ! empty( $query_args['endDateQuery'] ) && [ 'tribe_events' ] === $query_args[ 'post_type' ] ) {
+				$query_args[ 'post_type' ] = 'tribe_events';
+			}
+		}
 
 		return apply_filters(
 			'graphql_' . Main::POSTTYPE . '_connection_query_args',
