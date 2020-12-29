@@ -275,8 +275,7 @@ class Event_Type {
 
 		/**
 		 * Register custom meta fields.
-		 */ 
-
+		 */
 		$custom_fields = tribe_get_option( 'custom-fields');
 
 		if ( is_array( $custom_fields ) ) {
