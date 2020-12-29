@@ -289,8 +289,9 @@ class Event_Type {
 					array(
 						'type'        => 'String',
 						'description' => $field['label'],
-						'resolve'     => function ( $source, $field ) {
-							get_post_meta( $source->ID, $field['name'], true);
+						'resolve'     => function ( $source ) use( $field ) {
+							$value = get_post_meta( $source->ID, $field['name'], true);
+							return ! is_null( $value ) ? $value : null;
 						}
 					)
 				);
